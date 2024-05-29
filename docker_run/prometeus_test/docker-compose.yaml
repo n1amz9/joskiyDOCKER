@@ -5,6 +5,7 @@ services:
     image: prom/prometheus:latest
     volumes:
       - data:/prometheus
+      - /docker_images/prometheus:/etc/prometheus
     ports:
       - 9090:9090
     networks:
