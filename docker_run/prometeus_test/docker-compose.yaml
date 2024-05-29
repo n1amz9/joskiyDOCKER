@@ -12,3 +12,5 @@ services:
 networks:
   monitor:
     driver: bridge
+volumes:
+  data: {}
