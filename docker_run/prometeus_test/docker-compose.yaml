@@ -26,7 +26,6 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - data:/var/lib/grafana
       - /docker_images/datasources:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=admin
