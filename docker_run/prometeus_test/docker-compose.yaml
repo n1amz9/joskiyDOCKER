@@ -1,0 +1,14 @@
+version: "3.0"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - data:/prometheus
+    ports:
+      - 9090
+    networks:
+      - monitor
+networks:
+  monitor:
+    driver: bridge
