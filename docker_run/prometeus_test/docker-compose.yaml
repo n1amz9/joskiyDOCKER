@@ -31,7 +31,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
     expose:
-      - 3000
+      - 3000:3000
     networks:
       - monitor
 
