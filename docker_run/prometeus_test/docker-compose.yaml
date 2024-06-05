@@ -26,7 +26,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - /docker_images/datasources:/etc/grafana/provisioning
+      - /docker_images/datasources:/etc/grafana/provisioning/datasources
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -34,6 +34,9 @@ services:
       - 3000:3000
     networks:
       - monitor
+  zabbix:
+    image: zabbix:zabbix:latest
+    
 
 networks:
   monitor:
@@ -41,3 +44,4 @@ networks:
 
 volumes:
   data: {}
+  grafana_data: {}
