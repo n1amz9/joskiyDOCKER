@@ -38,8 +38,7 @@ services:
     image: kibana:8.14.0
     container_name: kibanaServer
     environment:
-      SERVER_NAME: mytest.kibana.org
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      - discovery.type=single-node
     ports:
       - 5601:5601
     networks:
@@ -48,7 +47,7 @@ services:
     image: elasticsearch:8.14.0
     container_name: elasticsearch
     environment:
-      discovery.type: single-node
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     networks:
       - monitor
     ports:
