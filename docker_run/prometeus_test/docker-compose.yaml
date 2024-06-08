@@ -6,7 +6,7 @@ services:
     container_name: prometheus
     volumes:
       - data:/prometheus
-      - /git/docker_images/prometheus:/etc/prometheus
+      - /home/gitTest/docker_images/prometheus:/etc/prometheus
     ports:
       - 9090:9090
     networks:
@@ -26,7 +26,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - /docker_images/datasources:/etc/grafana/provisioning/datasources
+      - /home/gitTest/docker_images/datasources:/etc/grafana/provisioning/datasources
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -34,8 +34,29 @@ services:
       - 3000:3000
     networks:
       - monitor
-  zabbix:
-    image: zabbix:zabbix:latest
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.14.0
+    container_name: kibanaServer
+    volumes:
+      - /home/gitTest/docker_images/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      SERVER_NAME: mytest.kibana.org
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    networks:
+      - monitor
+  elastic_search:
+    image: docker.elastic.co/elasticsearch/elasticsearch:latest
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    networks:
+      - monitor
+    ports:
+      - "9200:9200"
+    volumes:
+      - esdata:/user/share/elasticsearch/data
     
 
 networks:
