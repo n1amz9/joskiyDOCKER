@@ -6,7 +6,7 @@ services:
     container_name: prometheus
     volumes:
       - data:/prometheus
-      - /home/gitTest/docker_images/prometheus:/etc/prometheus
+      - /home/gitTest/joskiyDOCKER/docker_images/prometheus/:/etc/prometheus
     ports:
       - 9090:9090
     networks:
@@ -26,7 +26,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - /home/gitTest/docker_images/datasources:/etc/grafana/provisioning/datasources
+      - /home/gitTest/joskiyDOCKER/docker_images/prometheus/datasources:/etc/grafana/provisioning/datasources
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
