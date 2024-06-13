@@ -1,0 +1,30 @@
+[Unit]
+Description=platform-elasticsearch
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+User={{ app_user }}
+Group={{ app_group }}
+Environment=ES_PATH_CONF=/platform/opt/elasticsearch-{{ elasticsearch.version }}/config
+Environment=JAVA_HOME=/platform/opt/jdk{{ jdk.major_version }}_{{ jdk.minor_version }}
+LimitAS=infinity
+LimitRSS=infinity
+LimitCORE=infinity
+LimitNOFILE=100000
+LimitMEMLOCK=100000
+StandardOutput=syslog
+StandardError=syslog
+WorkingDirectory=/platform/var/app/elasticsearch
+ExecStart=/platform/opt/elasticsearch-{{ elasticsearch.version }}/bin/elasticsearch
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s -TERM $MAINPID
+TimeoutStopSec=60
+# When a JVM receives a SIGTERM signal it exits with code 143
+SuccessExitStatus=143 0
+Type=simple
+Restart=on-failure
+RestartSec=10
+PIDFile=/platform/var/run/elasticsearch.pid
+
+[Install]
+WantedBy=multi-user.target
